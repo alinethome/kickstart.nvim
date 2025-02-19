@@ -199,6 +199,9 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', 'j', 'gj', { desc = 'Go to visual line below' })
 vim.keymap.set('n', 'k', 'gk', { desc = 'Go to visual line above' })
 
+-- Make it so I can open this config file from anywhere
+vim.keymap.set('n', '<Leader>vrc', '<cmd>tabedit ~/.config/nvim/init.lua<CR>')
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
