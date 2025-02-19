@@ -161,7 +161,6 @@ vim.opt.scrolloff = 10
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.autoindent = true
-vim.opt.expandtab = true
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -195,6 +194,10 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Keybinds to make navigating wrapped text easier
+vim.keymap.set('n', 'j', 'gj', { desc = 'Go to visual line below' })
+vim.keymap.set('n', 'k', 'gk', { desc = 'Go to visual line above' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -286,7 +289,7 @@ require('lazy').setup({
           -- set icon mappings to true if you have a Nerd Font
           mappings = vim.g.have_nerd_font,
           -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
-          -- default whick-key.nvim defined Nerd Font icons, otherwise define a string table
+          -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
           keys = vim.g.have_nerd_font and {} or {
             Up = '<Up> ',
             Down = '<Down> ',
@@ -412,6 +415,8 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = '[S]earch [F]iles' })
+      -- vim.keymap.set('n', '<C-p>', '<leader>sf', { desc = 'Search workspace files' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -642,6 +647,11 @@ require('lazy').setup({
         },
       }
 
+      -- Enable roc lsp and set up capabilities
+      local roc_setup = { capabilities }
+      local lspconfig = require 'lspconfig'
+      lspconfig.roc_ls.setup(roc_setup)
+
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
       --  other tools, you can run
@@ -831,13 +841,20 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
+    -- 'folke/tokyonight.nvim',
+    -- 'bluz71/vim-moonfly-colors',
+    'shaunsingh/nord.nvim',
+    -- 'catppuccin/nvim',
+    -- 'navarasu/onedark.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-storm'
+      -- vim.cmd.colorscheme 'moonfly'
+      vim.cmd.colorscheme 'nord'
+      -- vim.cmd.colorscheme 'catppuccin'
+      -- vim.cmd.colorscheme 'onedark'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
