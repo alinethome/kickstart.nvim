@@ -161,6 +161,7 @@ vim.opt.scrolloff = 10
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.autoindent = true
+vim.opt.expandtab = true
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -202,6 +203,9 @@ vim.keymap.set('n', 'k', 'gk', { desc = 'Go to visual line above' })
 -- Make it so I can open this config file from anywhere
 vim.keymap.set('n', '<Leader>vrc', '<cmd>tabedit ~/.config/nvim/init.lua<CR>')
 
+-- Create a session
+vim.keymap.set('n', '<Leader>ms', '<cmd>mksession! ~/.config/nvim/sessions/lastsession.vim<CR>')
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -241,7 +245,9 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
+  -- (or indeed with a path to a local directory using the dir key - as in key = 'path/to/plugin')
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  { dir = '~/code/nvim-plugins/present.nvim' },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
